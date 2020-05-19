@@ -17,7 +17,7 @@ isort==4.3.21
 mccabe==0.6.1
 mock==3.0.5
 more-itertools==5.0.0
-packaging==20.0
+packaging==20.4
 pathlib2==2.3.5 ; python_version < '3'
 pluggy==0.13.1
 py==1.8.1
