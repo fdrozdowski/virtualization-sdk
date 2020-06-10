@@ -1,0 +1,38 @@
+name: Publish Python packages to Test PyPi
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  pre-commit:
+    steps:
+      # Check out the repo.
+      - uses: actions/checkout@v2
+      # Run pre-commit workflow.
+      - uses: ./.github/workflows/pre-commit
+
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        max-parallel: 5
+        python-version: [2.7]
+        package: [common, dvp, libs, platform, tools]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install dependencies necessary for building and publishing the package.
+      - name: Install dependencies
+        run: |
+          pip install setuptools wheel twine
+      # Build each Python package and publish it to Test PyPi.
+      - name: Build and publish ${{ matrix.package }} package
+        run: |
+          python setup.py sdist bdist_wheel
+          twine upload --repository-url https://test.pypi.org/legacy/ dist/*
