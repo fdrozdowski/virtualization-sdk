@@ -12,7 +12,7 @@ jobs:
       # Check out the repo.
       - uses: actions/checkout@v2
       # Run pre-commit workflow.
-      - uses: .github/workflows/pre-commit
+      - uses: ./.github/workflows/pre-commit
 
   publish:
     runs-on: ubuntu-latest
