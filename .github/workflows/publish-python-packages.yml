@@ -6,14 +6,6 @@ on:
       - '*'
 
 jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      # Check out the repo.
-      - uses: actions/checkout@v2
-      # Run pre-commit workflow.
-      - uses: ./.github/workflows/pre-commit@develop
-
   publish:
     runs-on: ubuntu-latest
     strategy:
