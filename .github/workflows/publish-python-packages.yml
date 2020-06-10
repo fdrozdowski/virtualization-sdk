@@ -1,9 +1,12 @@
 name: Publish Python packages to Test PyPi
 
 on:
+  # Run on push when a tag is created or the version file has changed.
   push:
     tags:
       - '*'
+    paths:
+      - 'dvp/src/main/python/dlpx/virtualization/VERSION'
 
 jobs:
   publish:
