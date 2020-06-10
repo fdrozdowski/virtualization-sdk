@@ -5,6 +5,10 @@ on:
   push:
     tags:
       - '*'
+    branches:
+      - master
+      - develop
+      - 'release/**'
     paths:
       - 'dvp/src/main/python/dlpx/virtualization/VERSION'
 
