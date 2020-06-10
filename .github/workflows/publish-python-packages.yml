@@ -12,7 +12,7 @@ jobs:
       # Check out the repo.
       - uses: actions/checkout@v2
       # Run pre-commit workflow.
-      - uses: ./.github/workflows/pre-commit
+      - uses: .github/workflows/pre-commit
 
   publish:
     runs-on: ubuntu-latest
@@ -34,6 +34,7 @@ jobs:
           pip install setuptools wheel twine
       # Build each Python package and publish it to Test PyPi.
       - name: Build and publish ${{ matrix.package }} package
+        working-directory: ${{ matrix.package }}
         run: |
           python setup.py sdist bdist_wheel
           twine upload --repository-url https://test.pypi.org/legacy/ dist/*
