@@ -34,6 +34,10 @@ jobs:
       # Build each Python package and publish it to Test PyPi.
       - name: Build and publish ${{ matrix.package }} package
         working-directory: ${{ matrix.package }}
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.VSDK_PYPI_TOKEN }}
+          TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
         run: |
           python setup.py sdist bdist_wheel
-          twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+          twine upload dist/*
