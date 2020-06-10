@@ -17,8 +17,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 5
       matrix:
-        max-parallel: 5
         python-version: [2.7]
         package: [common, dvp, libs, platform, tools]
 
