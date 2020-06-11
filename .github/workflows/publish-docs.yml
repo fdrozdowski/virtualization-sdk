@@ -26,4 +26,5 @@ jobs:
           pipenv install
       - name: Build documentation
         run: |
+          pipenv run pip freeze
           pipenv run mkdocs build --clean
