@@ -1,0 +1,29 @@
+name: Publish docs to GitHub pages
+
+on:
+  push:
+    branches:
+      - docs/2.0.0
+      - gh-action-docs-test
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Pipenv
+        uses: dschep/install-pipenv-action@v
+      - name: Install dependencies
+        run: |
+          pipenv install
+      - name: Build documentation
+        run: |
+          pipenv run mkdocs build --clean
