@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.7]
+        package: [docs]
 
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +23,7 @@ jobs:
       - name: Install Pipenv
         uses: dschep/install-pipenv-action@v1
       - name: Install dependencies
+        working-directory: ${{ matrix.package }}
         run: |
           pipenv install
       - name: Build documentation
