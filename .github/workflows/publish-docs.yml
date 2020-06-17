@@ -5,6 +5,8 @@ on:
     branches:
       - docs/2.0.0
       - gh-action-docs-test
+    paths:
+      - 'docs/**'
 
 jobs:
   publish:
