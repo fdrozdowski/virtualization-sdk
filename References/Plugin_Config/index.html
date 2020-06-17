@@ -994,50 +994,50 @@
 </table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>Assume the following basic plugin structure:</p>
-<div class="codehilite"><pre><span></span>├── plugin_config.yml
+<div class="codehilite"><pre><span></span><code>├── plugin_config.yml
 ├── schema.json
 └── src
     └── mongo_runner.py
-</pre></div>
+</code></pre></div>
 
 
 <p><code>mongo_runner.py</code> contains:</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">dlpx.virtualization.platform</span> <span class="kn">import</span> <span class="n">Plugin</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">dlpx.virtualization.platform</span> <span class="kn">import</span> <span class="n">Plugin</span>
 
 
 <span class="n">mongodb</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This is a valid plugin config for the plugin:</p>
-<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">7cf830f2-82f3-4d5d-a63c-7bbe50c22b32</span>
-<span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">MongoDB</span>
-<span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2.0.0</span>
-<span class="l l-Scalar l-Scalar-Plain">hostTypes</span><span class="p p-Indicator">:</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7cf830f2-82f3-4d5d-a63c-7bbe50c22b32</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MongoDB</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2.0.0</span>
+<span class="nt">hostTypes</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">UNIX</span>
-<span class="l l-Scalar l-Scalar-Plain">entryPoint</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mongo_runner:mongodb</span>
-<span class="l l-Scalar l-Scalar-Plain">srcDir</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">src/</span>
-<span class="l l-Scalar l-Scalar-Plain">schemaFile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">schema.json</span>
-<span class="l l-Scalar l-Scalar-Plain">pluginType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">DIRECT</span>
-<span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">PYTHON27</span>
-<span class="l l-Scalar l-Scalar-Plain">buildNumber</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
-</pre></div>
+<span class="nt">entryPoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mongo_runner:mongodb</span>
+<span class="nt">srcDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">src/</span>
+<span class="nt">schemaFile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">schema.json</span>
+<span class="nt">pluginType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DIRECT</span>
+<span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PYTHON27</span>
+<span class="nt">buildNumber</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
+</code></pre></div>
 
 
 <p>This is a valid plugin config for the plugin with <code>manualDiscovery</code> set to <code>false</code> and an <code>externalVersion</code> set:</p>
-<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">7cf830f2-82f3-4d5d-a63c-7bbe50c22b32</span>
-<span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">MongoDB</span>
-<span class="l l-Scalar l-Scalar-Plain">hostTypes</span><span class="p p-Indicator">:</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7cf830f2-82f3-4d5d-a63c-7bbe50c22b32</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MongoDB</span>
+<span class="nt">hostTypes</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">UNIX</span>
-<span class="l l-Scalar l-Scalar-Plain">entryPoint</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mongo_runner:mongodb</span>
-<span class="l l-Scalar l-Scalar-Plain">srcDir</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">src/</span>
-<span class="l l-Scalar l-Scalar-Plain">schemaFile</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">schema.json</span>
-<span class="l l-Scalar l-Scalar-Plain">manualDiscovery</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="l l-Scalar l-Scalar-Plain">pluginType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">DIRECT</span>
-<span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">PYTHON27</span>
-<span class="l l-Scalar l-Scalar-Plain">externalVersion</span><span class="p p-Indicator">:</span> <span class="s">&quot;MongoDB</span><span class="nv"> </span><span class="s">1.0&quot;</span>
-<span class="l l-Scalar l-Scalar-Plain">buildNumber</span><span class="p p-Indicator">:</span> <span class="s">&quot;1&quot;</span>
-</pre></div>
+<span class="nt">entryPoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mongo_runner:mongodb</span>
+<span class="nt">srcDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">src/</span>
+<span class="nt">schemaFile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">schema.json</span>
+<span class="nt">manualDiscovery</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">pluginType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DIRECT</span>
+<span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PYTHON27</span>
+<span class="nt">externalVersion</span><span class="p">:</span> <span class="s">&quot;MongoDB</span><span class="nv"> </span><span class="s">1.0&quot;</span>
+<span class="nt">buildNumber</span><span class="p">:</span> <span class="s">&quot;1&quot;</span>
+</code></pre></div>
                 
                   
                 

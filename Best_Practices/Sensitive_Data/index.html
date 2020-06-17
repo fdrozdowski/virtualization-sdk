@@ -851,7 +851,7 @@
 <h1 id="marking-your-data-as-sensitive">Marking Your Data As Sensitive<a class="headerlink" href="#marking-your-data-as-sensitive" title="Permanent link">&para;</a></h1>
 <p>Because the Delphix Engine manages the storing and retrieving of plugin-defined data, it needs to know which pieces of data are sensitive. The plugin does this in its <a href="../../References/Glossary/#schema">schemas</a>, by using the special <a href="../../References/Schemas/#password"><code>password</code></a> keyword.</p>
 <p>The following example of a schema defines an object with three properties, one of which is sensitive and tagged with the <code>password</code> keyword:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
     <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;db_connectionPort&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
@@ -859,7 +859,7 @@
         <span class="nt">&quot;db_password&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span><span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This tells the Delphix Engine to take special precautions with this password property, as follows:</p>
@@ -874,50 +874,50 @@
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>Let us take a look at a very simple example where we need to shutdown a database called "inventory" on a target environment by using the <code>db_cmd shutdown inventory</code> command. This command will ask for a password on <code>stdin</code>, and for our example our password is "hunter2".</p>
 <p>If we were running this command by hand, it might look like this:</p>
-<div class="codehilite"><pre><span></span>$ db_cmd shutdown inventory
+<div class="codehilite"><pre><span></span><code>$ db_cmd shutdown inventory
 Connecting to database instance...
 Please enter database password:
-</pre></div>
+</code></pre></div>
 
 
 <p>At this point, we would type in "hunter2", and the command would proceed to shut down the database.</p>
 <p>Since a plugin cannot type in the password by hand, it will do something like this instead:</p>
-<div class="codehilite"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;hunter2&quot;</span> <span class="p">|</span> db_cmd shutdown inventory
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;hunter2&quot;</span> <span class="p">|</span> db_cmd shutdown inventory
+</code></pre></div>
 
 
 <h2 id="dont-do-this">Don't Do This<a class="headerlink" href="#dont-do-this" title="Permanent link">&para;</a></h2>
 <p>First, let us take a look at how <strong>not</strong> to do this! Here is a bit of plugin python code that will run the above command.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">dlpx.virtualization</span> <span class="kn">import</span> <span class="n">libs</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">dlpx.virtualization</span> <span class="kn">import</span> <span class="n">libs</span>
 <span class="kn">from</span> <span class="nn">dlpx.virtualization.platform</span> <span class="kn">import</span> <span class="n">Plugin</span>
 
 <span class="n">plugin</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">()</span>
 
-<span class="nd">@plugin.virtual.stop</span><span class="p">()</span>
+<span class="nd">@plugin</span><span class="o">.</span><span class="n">virtual</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">my_virtual_stop</span><span class="p">(</span><span class="n">virtual_source</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">source_config</span><span class="p">):</span>
   <span class="c1"># THIS IS INSECURE! DO NOT DO THIS!</span>
-  <span class="n">full_command</span> <span class="o">=</span> <span class="s2">&quot;echo {} | db_cmd shutdown {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">db_name</span><span class="p">)</span>
+  <span class="n">full_command</span> <span class="o">=</span> <span class="s2">&quot;echo </span><span class="si">{}</span><span class="s2"> | db_cmd shutdown </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">db_name</span><span class="p">)</span>
   <span class="n">libs</span><span class="o">.</span><span class="n">run_bash</span><span class="p">(</span><span class="n">virtual_source</span><span class="o">.</span><span class="n">connection</span><span class="p">,</span> <span class="n">full_command</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This constructs a Python string containing exactly the desired command from above. However, this is not recommended.</p>
 <p>The problem here is that there is a cleartext password in the Python string. But, this Python string is not treated as sensitive by the Virtualization Platform. For example, suppose the Virtualization Platform cannot make a connection to the target environment. In which case, it will raise an error containing the Python string, so that people will know what command failed. But, in our example, that would result in the password being part of the cleartext error message.</p>
 <h2 id="using-environment-variables">Using Environment Variables<a class="headerlink" href="#using-environment-variables" title="Permanent link">&para;</a></h2>
 <p>The Delphix Engine provides a better way to pass sensitive data to remote bash (or powershell) calls: environment variables. Let us look at a different way to run the same command as above.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">dlpx.virtualization</span> <span class="kn">import</span> <span class="n">libs</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">dlpx.virtualization</span> <span class="kn">import</span> <span class="n">libs</span>
 <span class="kn">from</span> <span class="nn">dlpx.virtualization.platform</span> <span class="kn">import</span> <span class="n">Plugin</span>
 
 <span class="n">plugin</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">()</span>
 
-<span class="nd">@plugin.virtual.stop</span><span class="p">()</span>
+<span class="nd">@plugin</span><span class="o">.</span><span class="n">virtual</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
   <span class="c1"># Use environment variables to pass sensitive data to remote commands</span>
   <span class="n">environment_vars</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;DATABASE_PASSWORD&quot;</span> <span class="p">:</span> <span class="n">password</span>
   <span class="p">}</span>
-  <span class="n">full_command</span> <span class="o">=</span> <span class="s2">&quot;echo $DATABASE_PASSWORD | db_cmd shutdown {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
+  <span class="n">full_command</span> <span class="o">=</span> <span class="s2">&quot;echo $DATABASE_PASSWORD | db_cmd shutdown </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
   <span class="n">libs</span><span class="o">.</span><span class="n">run_bash</span><span class="p">(</span><span class="n">virtual_source</span><span class="o">.</span><span class="n">connection</span><span class="p">,</span> <span class="n">full_command</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="n">environment_vars</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <div class="admonition note">

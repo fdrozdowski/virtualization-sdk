@@ -903,18 +903,18 @@
 <p><a href="https://docs.python.org/2/library/pkgutil.html">pkgutil</a> is part of the standard Python library. The method that is applicable to resources is <a href="https://docs.python.org/2/library/pkgutil.html#pkgutil.get_data">pkgutil.get_data</a>.</p>
 <h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
 <p>Given the following plugin structure:</p>
-<div class="codehilite"><pre><span></span>├── plugin_config.yml
+<div class="codehilite"><pre><span></span><code>├── plugin_config.yml
 ├── schema.json
 └── src
     ├── plugin_runner.py
     └── resources
         ├── __init__.py
         └── get_date.sh
-</pre></div>
+</code></pre></div>
 
 
 <p>Assume <code>SnapshotDefinition</code> is:</p>
-<div class="codehilite"><pre><span></span>&quot;snapshotDefinition&quot;: {
+<div class="codehilite"><pre><span></span><code>&quot;snapshotDefinition&quot;: {
     &quot;type&quot; : &quot;object&quot;,
     &quot;additionalProperties&quot; : false,
     &quot;properties&quot; : {
@@ -922,18 +922,18 @@
         &quot;date&quot;: {&quot;type&quot;: &quot;string&quot;}
     }
 }
-</pre></div>
+</code></pre></div>
 
 
 <p>and <code>src/resources/get_date.sh</code> contains:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env bash</span>
 date
-</pre></div>
+</code></pre></div>
 </td></tr></table>
 
 <p>If <code>get_date.sh</code> is needed in <code>post_snapshot</code>, it can be retrieved and executed:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pkgutil</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pkgutil</span>
 
 <span class="kn">from</span> <span class="nn">dlpx.virtualization</span> <span class="kn">import</span> <span class="n">libs</span>
 <span class="kn">from</span> <span class="nn">dlpx.virtualization.platform</span> <span class="kn">import</span> <span class="n">Plugin</span>
@@ -944,7 +944,7 @@ date
 
 <span class="n">plugin</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">()</span>
 
-<span class="nd">@plugin.linked.post_snapshot</span><span class="p">()</span>
+<span class="nd">@plugin</span><span class="o">.</span><span class="n">linked</span><span class="o">.</span><span class="n">post_snapshot</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">post_snapshot</span><span class="p">(</span><span class="n">direct_source</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">source_config</span><span class="p">):</span>
     <span class="c1"># Retrieve script contents</span>
     <span class="n">script_content</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="s1">&#39;get_date.sh&#39;</span><span class="p">)</span>
@@ -957,10 +957,10 @@ date
         <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
         <span class="s1">&#39;Failed to get date&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Make sure the user has the required permissions&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">rsponse</span><span class="o">.</span><span class="n">stderr</span><span class="p">))</span>
+        <span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">rsponse</span><span class="o">.</span><span class="n">stderr</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">SnapshotDefinition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Snapshot&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <div class="admonition note">
@@ -973,7 +973,7 @@ date
 </div>
 <h3 id="multi-level-packages">Multi-level Packages<a class="headerlink" href="#multi-level-packages" title="Permanent link">&para;</a></h3>
 <p>Given the following plugin structure:</p>
-<div class="codehilite"><pre><span></span>├── plugin_config.yml
+<div class="codehilite"><pre><span></span><code>├── plugin_config.yml
 ├── schema.json
 └── src
     ├── plugin_runner.py
@@ -985,12 +985,12 @@ date
         └── platform
             ├── __init__.py
             └── get_date.sh
-</pre></div>
+</code></pre></div>
 
 
 <p>The contents of <code>src/resources/platform/get_date.sh</code> can be retrieved with:</p>
-<div class="codehilite"><pre><span></span><span class="n">script_content</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;resources.platform&#39;</span><span class="p">,</span> <span class="s1">&#39;get_date.sh&#39;</span><span class="p">)</span>
-</pre></div>
+<div class="codehilite"><pre><span></span><code><span class="n">script_content</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;resources.platform&#39;</span><span class="p">,</span> <span class="s1">&#39;get_date.sh&#39;</span><span class="p">)</span>
+</code></pre></div>
                 
                   
                 

@@ -942,8 +942,8 @@
 </ul>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>To install the latest version of the SDK run:</p>
-<div class="codehilite"><pre><span></span>$ pip install dvp
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$ pip install dvp
+</code></pre></div>
 
 
 <div class="admonition tip">
@@ -953,13 +953,13 @@
 <p><code>$ virtualenv -p /path/to/python2.7/binary ENV</code></p>
 </div>
 <p>To install a specific version of the SDK run:</p>
-<div class="codehilite"><pre><span></span>$ pip install dvp==&lt;version&gt;
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$ pip install dvp==&lt;version&gt;
+</code></pre></div>
 
 
 <p>To upgrade an existing installation of the SDK run:</p>
-<div class="codehilite"><pre><span></span>$ pip install dvp --upgrade
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$ pip install dvp --upgrade
+</code></pre></div>
 
 
 <div class="admonition note">
@@ -969,13 +969,13 @@
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <p>Our <a href="../References/CLI/">CLI reference</a> describes commands, provides examples, and a help section.</p>
 <p>To build your plugin:</p>
-<div class="codehilite"><pre><span></span>$ dvp build -c &lt;plugin_config&gt; -a &lt;artifact_file&gt;
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$ dvp build -c &lt;plugin_config&gt; -a &lt;artifact_file&gt;
+</code></pre></div>
 
 
 <p>This will generate an upload artifact at <code>&lt;artifact_file&gt;</code>. That file can then be uploaded with:</p>
-<div class="codehilite"><pre><span></span>$ dvp upload -e &lt;delphix_engine_address&gt; -u &lt;delphix_admin_user&gt; -a &lt;artifact_file&gt;
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$ dvp upload -e &lt;delphix_engine_address&gt; -u &lt;delphix_admin_user&gt; -a &lt;artifact_file&gt;
+</code></pre></div>
 
 
 <p>You will be prompted for the Delphix Engine user's password.</p>

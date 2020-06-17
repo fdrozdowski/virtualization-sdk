@@ -928,14 +928,14 @@
 </tbody>
 </table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pkgutil</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pkgutil</span>
 <span class="kn">from</span> <span class="nn">dlpx.virtualization.platform</span> <span class="kn">import</span> <span class="n">Plugin</span>
 <span class="kn">from</span> <span class="nn">generated.definitions</span> <span class="kn">import</span> <span class="n">SourceConfigDefinition</span>
 <span class="kn">from</span> <span class="nn">dlpx.virtualization.platform.exceptions</span> <span class="kn">import</span> <span class="n">UserError</span>
 
 <span class="n">plugin</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">()</span>
 
-<span class="nd">@plugin.virtual.start</span><span class="p">()</span>
+<span class="nd">@plugin</span><span class="o">.</span><span class="n">virtual</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">virtual_source</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">source_config</span><span class="p">):</span>
   <span class="n">script_content</span> <span class="o">=</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="s1">&#39;start_database.sh&#39;</span><span class="p">)</span>
 
@@ -946,8 +946,8 @@
     <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
     <span class="s1">&#39;Failed to start the database&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Make sure the user has appropriate permissions&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">stderr</span><span class="p">))</span>
-</pre></div>
+    <span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">stderr</span><span class="p">))</span>
+</code></pre></div>
 
 
 <p>The UI would show the end user if the plugin operation above fails:</p>
