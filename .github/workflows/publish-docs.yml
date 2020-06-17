@@ -27,6 +27,7 @@ jobs:
         run: |
           pipenv install
       - name: Build documentation
+        working-directory: ${{ matrix.package }}
         run: |
           pipenv run pip freeze
           pipenv run mkdocs build --clean
