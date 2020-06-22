@@ -18,10 +18,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - uses: nelonoel/branch-name@v1
+      - name: Verify branch match
+        working-directory: ${{ matrix.package }}
+        run: |
+          git branch -r
       - name: Install Pipenv
         uses: dschep/install-pipenv-action@v1
       - name: Install dependencies
@@ -31,9 +38,8 @@ jobs:
       - name: Build documentation
         working-directory: ${{ matrix.package }}
         run: |
-          pipenv run pip freeze
           pipenv run mkdocs build --clean
-      - name: Deploy 🚀
+      - name: Deploy to gh-pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
