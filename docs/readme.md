@@ -2,19 +2,15 @@
 
 This is the Markdown-based documentation for the Virtualization SDK.
 
-## Local Testing
-Create a `virtualenv` using Python 3 and run `pipenv run mkdocs serve`
+### Local Testing
+Install dependencies for building documentation and run `pipenv run mkdocs serve`
 
 ```
-$ virtualenv -p /usr/local/bin/python3 .
-Running virtualenv with interpreter /usr/local/bin/python3
-Using base prefix '/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7'
-New python executable in /Users/asarin/Documents/repos/virt-sdk-docs/env/bin/python3.7
-Also creating executable in /Users/asarin/Documents/repos/virt-sdk-docs/env/bin/python
-Installing setuptools, pip, wheel...
-done.
-
-$ source bin/activate
+$ pipenv install
+Installing dependencies from Pipfile.lock (cf5b7c)...
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 16/16 — 00:00:02
+To activate this project's virtualenv, run pipenv shell.
+Alternatively, run a command inside the virtualenv with pipenv run.
 
 $ pipenv run mkdocs serve
 INFO    -  Building documentation... 
@@ -81,6 +77,15 @@ The command `git docsdev-review` will handle publishing reviews, and putting you
 - Push your doc changes to your VM
 - Give you a link to the docdev server so you can test your changes live in a browser
 - Publish a review
+
+Alternatively, you can build the documentation and publish it to the `gh-pages` branch of your GitHub fork.
+```
+$ pipenv run mkdocs build --clean
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /Users/loaner/Work/vsdk/docs/site
+```
+You can copy and publish the contents of `docs/site` directory to your `gh-pages` branch. Now, you should be able to see the documentation's
+preview under `<your-github-username>.github.io/virtualization-sdk`.
 
 ## Workflow diagrams
 We create workflow diagrams using a tool called `draw.io` which allows us to import/export diagrams in html format. If you want to add a diagram or edit an existing one, simply create or import the html file in `docs/References/html` into `draw.io` and make your desired changes. When you are done, select your diagram and export it as a png file. You can think of the html files as source code, and the png files as build artifacts. After this step, you will be prompted to crop what was selected. You'll want this box checked to trim the whitespace around the diagram. After the diagrams are exported, check in the updated html file to `docs/References/html` and png file to `docs/References/images`.
