@@ -2,7 +2,7 @@
 
 This is the Markdown-based documentation for the Virtualization SDK.
 
-### Local Testing
+## Local Testing
 Create a `virtualenv` using Python 3 and run `pipenv run mkdocs serve`
 
 ```
