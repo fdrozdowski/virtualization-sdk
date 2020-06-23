@@ -32,8 +32,10 @@ jobs:
       - name: Verify branch match
         working-directory: ${{ matrix.package }}
         run: |
+          # Display all remote branches
           git branch -r
-          git branch -r | grep -e ".*\/*docs\/[0-9].[0-9].[0-9]" | sed -n "s/.*\/*\(docs\/[0-9].[0-9].[0-9]\).*/\1/p" | sort -r
+          # Get only docs branches, extract the "docs/x.y.z" part, sort them in descending order, and get the first one.
+          git branch -r | grep -e ".*\/*docs\/[0-9].[0-9].[0-9]" | sed -n "s/.*\/*\(docs\/[0-9].[0-9].[0-9]\).*/\1/p" | sort -r | head -n 1
       - name: Install Pipenv
         uses: dschep/install-pipenv-action@v1
       - name: Install dependencies
